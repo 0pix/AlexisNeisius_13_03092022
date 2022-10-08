@@ -1,20 +1,29 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Profil from "./pages/Profil/Profil";
+import Transaction from "./pages/Transaction/Transaction";
+import Header from "./pages/layouts/Header";
+import Footer from "./pages/layouts/Footer";
+import Home from "./pages/Home/Home";
+import Sign from "./pages/Sign/Sign";
 
 
 function App() {
 	return (
 		<Router>
+			<div className="app">
 			<Header/>
-			<div className="App">
 				<Routes>
-					<Route path="/profil" element={<Profil/>}/>
+					<Route path="/" element={<Home/>}/>
 				</Routes>
 				<Routes>
-					<Route path="/profil/:id" element={<Profil/>}/>
+					<Route path="/sign" element={<Sign/>}/>
 				</Routes>
-			</div>
+				<Routes>
+					<Route path="/transaction" element={<Transaction/>}/>
+				</Routes>
 			<Footer/>
+			</div>
 		</Router>
 	);
 }
