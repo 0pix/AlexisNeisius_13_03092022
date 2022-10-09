@@ -2,53 +2,44 @@ import {createStore} from 'redux'
 
 const initialState = {
 	account: false,
-	user : {},
+	error: null,
+	user : {
+		email: "null",
+		password: "null"
+	},
 }
 
 const counterReducer = (state = initialState, action) => {
-	// if (action.type ==='increment'){
-	// 	return {
-	// 		counter: state.counter + 1,
-	// 		showCounter: state.showCounter
-	// 	}
-	// }
-
 
 	if (action.type ==='submit'){
-		// console.log(action.user.mail)
 		return {
 			account: state.account,
+			error: state.error,
 			user : action.user
 		}
 	}
-
-
-
-
-
-
-	// if (action.type ==='increase'){
-	// 	return {
-	// 		counter: state.counter + action.amount,
-	// 		showCounter: state.showCounter
-	// 	}
-	// }
-	// if (action.type ==='decrement'){
-	// 	return {
-	// 		counter: state.counter  -1,
-	// 		showCounter: state.showCounter
-	// 	}
-	// }
-	// if (action.type === 'toggle'){
-	// 	 return {
-	// 		 showCounter: !state.showCounter,
-	// 		 counter: state.counter
-	// 	 }
-	// }
+	if (action.type ==='haveAccount'){
+		return {
+			account: true,
+			error: state.error,
+			user : state.user
+		}
+	}
+	if (action.type ==='dontHaveAccount'){
+		return {
+			account: state.account,
+			error: state.error,
+			user : state.user
+		}
+	}
+	if (action.type ==='getError'){
+		return {
+			account: false,
+			error: action.error,
+			user : state.user
+		}
+	}
 	return state
 }
-
-
-
 
 export const store = createStore(counterReducer)

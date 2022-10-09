@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {Link}from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useFetch} from "../../hooks/useFetch";
-import SimpleForm from "../../components/test form/formTest";
 import {store} from "../../store";
 
 
@@ -10,35 +9,36 @@ import {store} from "../../store";
 
 const Sign = () => {
 	const dispatch = useDispatch()
+	const navigate = useNavigate();
 	const account = useSelector(state => state.account)
-	const maill = useSelector(state => state.user.mail)
-	const password = useSelector(state => state.user.password)
+	const error = useSelector(state => state.error)
+	// const maill = useSelector(state => state.user.email)
+	// const password = useSelector(state => state.user.password)
 	// const [email, setEmail] = useState("");
 	// const [password, setPassword] = useState("");
 
+		useFetch("POST", "http://localhost:3001/api/v1/user/login")
+  // Si les deux inputs ne sont pas vide, on dispatch user
+	// submit = navigate
 	const handlerSubmit = (e) => {
 		e.preventDefault();
 		dispatch({type: 'submit', user: {
-			mail : e.target[0].value,
+			email : e.target[0].value,
 			password  :	e.target[1].value,
 			}})
+		if (account === true){
+			navigate('/transaction')
+		}
 		//  console.log(e.target[0].value)
 		// console.log(e.target[1].value)
 		// console.log(e.target[2].value)
 	}
 
-		useFetch("POST", "http://localhost:3001/api/v1/user/login")
-	// const getMailHandler = (mail) => {
-	// 	dispatch({type: 'submit', email: mail })
-	// }
-	 // const Username =
 
-
-
+	console.log(account)
 
 	return (
 		<main className="main bg-dark">
-			<button onClick={()=>	console.log(maill, password ) }>Clic</button>
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
 				<h1>Sign In</h1>
@@ -56,9 +56,8 @@ const Sign = () => {
 					>Remember me</label
 					>
 					</div>
+					{error != null ? <p style={{color: "red",fontSize: "1.2em"}}>{error}</p> : null}
 					<button  className="sign-in-button">Sign In</button>
-					{/*<Link  className="sign-in-button" to={account ? "/transaction" : null}>Sign In</Link>*/}
-					{/*() => {useFetch()}*/}
 				</form>
 			</section>
 

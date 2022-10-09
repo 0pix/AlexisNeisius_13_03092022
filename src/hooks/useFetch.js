@@ -1,69 +1,70 @@
 import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-// const dispatch = useDispatch()
 
-
-
-/**
- * Hooks to get data from Api or from mock of the user
- *
- * @param url  endpoints of the data from the API
- * @param mock Boolean, set on true to use the mock
- * @param dataMock data from mock
- * @param id number, id from the current user
- *
- * @return { data, error }
- * @author Alexis.N
- * @version 1.0
- */
 
 export const useFetch = (method, url) => {
+	const dispatch = useDispatch()
 	const user = useSelector(state => state.user)
+	const account = useSelector(state => state.account)
+	const error = useSelector(state => state.error)
+
 	const [data, setData] = useState(null);
-	const [error, setError] = useState(null);
+	const [token, setToken] = useState(null);
+	// const [error, setError] = useState(null);
 
-	// console.log(user)
+	const haveAccount = () => {
+		dispatch({type: 'haveAccount'})
+	}
+
+	const dontHaveAccount = () => {
+		dispatch({type: 'dontHaveAccount'})
+	}
+
+	const getError = (error) => {
+		dispatch({type: 'getError', error : error})
+	}
 
 
-	const requestOptions = {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(
-			user
-		)
-	};
-
-	// const requestOptions = {
-	// 	method: 'POST',
-	// 	headers: { 'Content-Type': 'application/json' },
-	// 	body: JSON.stringify({
-	// 		"email": "tony@stark.com",
-	// 		"password": "password123"
-	// 	})
-	// };
 
 	const fetchData = () => {
 		if (method === "POST") {
 			fetch("http://localhost:3001/api/v1/user/login", {
-				method: "POST",
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
 				body: JSON.stringify({
-					"email": "tony@stark.com",
-					"password": "password123"
+					"email": user.email,
+					"password": user.password
 				}),
 			})
 				.then(function (res) {
-					console.log(res)
 					return res.json();
 				})
 				.then(function (data) {
 					setData(data);
+					if (data.status === 400){
+					dontHaveAccount()
+					getError(data.message)
+					console.log(data.message)
+					// setError(data.message)
+					setToken(null)
+					}
+					if (data.status === 200){
+						haveAccount()
+						setToken(data.body.token)
+						// setError(null)
+					}
 				})
 				.catch(function (err) {
 					console.log(err, ' error');
-					setError(err);
+					// setError(err);
 				});
 		}
 	};
+		// console.log(token)
+		console.log(error)
+		// console.log(account)
 
 	useEffect(() => {
 		fetchData();
