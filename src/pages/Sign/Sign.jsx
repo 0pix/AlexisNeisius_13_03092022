@@ -1,10 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {useFetch} from "../../hooks/useFetch";
-import {store} from "../../store";
-
-
 
 
 const Sign = () => {
@@ -12,30 +9,68 @@ const Sign = () => {
 	const navigate = useNavigate();
 	const account = useSelector(state => state.account)
 	const error = useSelector(state => state.error)
-	// const maill = useSelector(state => state.user.email)
-	// const password = useSelector(state => state.user.password)
-	// const [email, setEmail] = useState("");
-	// const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-		useFetch("POST", "http://localhost:3001/api/v1/user/login")
-  // Si les deux inputs ne sont pas vide, on dispatch user
-	// submit = navigate
+	useFetch("POST", "http://localhost:3001/api/v1/user/login")
+
+
 	const handlerSubmit = (e) => {
 		e.preventDefault();
-		dispatch({type: 'submit', user: {
-			email : e.target[0].value,
-			password  :	e.target[1].value,
-			}})
-		if (account === true){
-			navigate('/transaction')
-		}
-		//  console.log(e.target[0].value)
-		// console.log(e.target[1].value)
-		// console.log(e.target[2].value)
+		// if (account === true) {
+		// 	navigate('/transaction')
+		// }
+
+		dispatch({
+			type: 'submit', user: {
+				email: email,
+				password: password,
+			}
+		})
+		// if (account === false) {
+		// 	alert("votre email ou votre mot de passe est incorrect")
+		// }
+	}
+
+	// const userDispatch = () => {
+	// 	dispatch({
+	// 		type: 'submit', user: {
+	// 			email: email,
+	// 			password: password,
+	// 		}
+	// 	})
+	// }
+
+	// const sendUserToStore = () => {
+	// 	if (email !== "" && password !== "") {
+	// 		userDispatch()
+	// 	}
+	// }
+
+	// useEffect(() => {
+	// 	sendUserToStore()
+	// }, [email, password]);
+
+	const handleChangeMail = event => {
+		setEmail(event.target.value);
+	}
+
+	const handleChangePassword = event => {
+		setPassword(event.target.value);
 	}
 
 
-	console.log(account)
+	// const errorMessage = () => {
+	// 	if (error !== "" && account === false) {
+	// 		if (email !== "" && password !== "") {
+	// 			return (<p>
+	// 					{error}
+	// 				</p>
+	// 			)
+	// 		}
+	// 	}
+	// }
+
 
 	return (
 		<main className="main bg-dark">
@@ -45,22 +80,23 @@ const Sign = () => {
 				<form onSubmit={(e) => handlerSubmit(e)}>
 					<div className="input-wrapper">
 						<label htmlFor="username">Username</label
-						><input type="text" id="username"/>
+						><input onChange={handleChangeMail} type="text" id="username"/>
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label
-						><input  type="password" id="password"/>
+						><input onChange={handleChangePassword} type="password" id="password"/>
 					</div>
 					<div className="input-remember">
 						<input type="checkbox" id="remember-me"/><label htmlFor="remember-me"
 					>Remember me</label
 					>
 					</div>
-					{error != null ? <p style={{color: "red",fontSize: "1.2em"}}>{error}</p> : null}
-					<button  className="sign-in-button">Sign In</button>
+					{/*{errorMessage()}*/}
+					<button
+						className="sign-in-button">Sign In
+					</button>
 				</form>
 			</section>
-
 		</main>
 	);
 };
