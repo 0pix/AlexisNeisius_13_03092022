@@ -32,7 +32,7 @@ export const useFetch = (method, url) => {
 	const fetchData = () => {
 
 		if (method === "POST") {
-			fetch("http://localhost:3001/api/v1/user/login", {
+			fetch(url, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -63,12 +63,13 @@ export const useFetch = (method, url) => {
 				});
 		}
 	};
+	// console.log("ici")
 	// console.log(token)
 	// console.log(error)
 	// console.log(user)
 	// console.log(account)
 	// console.log(data)
-	console.log(token)
+	// console.log(token)
 	// console.log("useFetch")
 
 	useEffect(() => {

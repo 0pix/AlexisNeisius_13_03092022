@@ -1,7 +1,6 @@
 import {createStore} from 'redux'
 
 const initialState = {
-	account: false,
 	error: "",
 	token: "",
 	user: {
@@ -20,14 +19,14 @@ const counterReducer = (state = initialState, action) => {
 			token: state.token
 		}
 	}
-	if (action.type === 'haveAccount') {
-		return {
-			account: true,
-			error: state.error,
-			user: state.user,
-			token: state.token
-		}
-	}
+	// if (action.type === 'haveAccount') {
+	// 	return {
+	// 		account: true,
+	// 		error: state.error,
+	// 		user: state.user,
+	// 		token: state.token
+	// 	}
+	// }
 	if (action.type === 'dontHaveAccount') {
 		return {
 			account: state.account,

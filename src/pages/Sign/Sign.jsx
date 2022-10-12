@@ -1,73 +1,53 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {useFetch} from "../../hooks/useFetch";
+import {request} from "../../helper/fetch";
 
 
-const Sign = () => {
+function Sign() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate();
-	const account = useSelector(state => state.account)
 	const error = useSelector(state => state.error)
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
-	useFetch("POST", "http://localhost:3001/api/v1/user/login")
+	const token = useSelector(state => state.token)
 
 
-	const handlerSubmit = (e) => {
+	const getError = (error) => {
+		dispatch({type: 'getError', error: error})
+	}
+
+	const getToken = (token) => {
+		dispatch({type: 'getToken', token: token})
+	}
+
+	const handlerSubmit = async (e) => {
 		e.preventDefault();
-		// if (account === true) {
-		// 	navigate('/transaction')
-		// }
+		const body = {
+			"email": e.target[0].value,
+			"password": e.target[1].value
+		}
 
-		dispatch({
-			type: 'submit', user: {
-				email: email,
-				password: password,
-			}
-		})
-		// if (account === false) {
-		// 	alert("votre email ou votre mot de passe est incorrect")
-		// }
+		console.log('Submit')
+		console.log(e.target[0].value)
+		console.log(e.target[1].value)
+
+		const test = await request("POST", "http://localhost:3001/api/v1/user/login", body)
+		// console.log(test.body.token)
+		if (test.status === 400) {
+			getError(test.message)
+		}
+		if (test.status === 200) {
+			getToken(test.body.token)
+			navigate('/transaction')
+		}
 	}
-
-	// const userDispatch = () => {
-	// 	dispatch({
-	// 		type: 'submit', user: {
-	// 			email: email,
-	// 			password: password,
-	// 		}
-	// 	})
-	// }
-
-	// const sendUserToStore = () => {
-	// 	if (email !== "" && password !== "") {
-	// 		userDispatch()
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	sendUserToStore()
-	// }, [email, password]);
-
-	const handleChangeMail = event => {
-		setEmail(event.target.value);
-	}
-
-	const handleChangePassword = event => {
-		setPassword(event.target.value);
-	}
-
+	// exécuter le call du fetch ici, puis le dispatch vers le store du token
 
 	// const errorMessage = () => {
-	// 	if (error !== "" && account === false) {
-	// 		if (email !== "" && password !== "") {
-	// 			return (<p>
-	// 					{error}
-	// 				</p>
-	// 			)
-	// 		}
+	// 	if (token === "" && error !== "") {
+	// 		return (<p style={{color: "red"}}>
+	// 				{error}
+	// 			</p>
+	// 		)
 	// 	}
 	// }
 
@@ -80,11 +60,11 @@ const Sign = () => {
 				<form onSubmit={(e) => handlerSubmit(e)}>
 					<div className="input-wrapper">
 						<label htmlFor="username">Username</label
-						><input onChange={handleChangeMail} type="text" id="username"/>
+						><input type="text" id="username"/>
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label
-						><input onChange={handleChangePassword} type="password" id="password"/>
+						><input type="password" id="password"/>
 					</div>
 					<div className="input-remember">
 						<input type="checkbox" id="remember-me"/><label htmlFor="remember-me"
@@ -99,6 +79,7 @@ const Sign = () => {
 			</section>
 		</main>
 	);
-};
+}
+
 
 export default Sign;
