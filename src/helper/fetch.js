@@ -1,25 +1,24 @@
 // utiliser cette fonction uniquement pour récupérer la data puis faire un dispatche dans le composent parent
 
 
-export async function request(method, url, body) {
+export async function request(method, url, body, headers) {
+	// console.log(url, body, headers)
 
 
 	const reponse = await fetch(url, {
 		method: method,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(body)
+		headers: headers,
+		body: body
 	})
 
 	try {
 		const data = await reponse.json()
 
 		if (data.status === 400) {
-			console.log(data)
+			// console.log(data)
 		}
 		if (data.status === 200) {
-			console.log(data)
+			// console.log(data)
 		}
 		return data;
 	} catch (err) {

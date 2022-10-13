@@ -19,18 +19,24 @@ function Sign() {
 		dispatch({type: 'getToken', token: token})
 	}
 
+
 	const handlerSubmit = async (e) => {
 		e.preventDefault();
-		const body = {
+
+		const body = JSON.stringify({
 			"email": e.target[0].value,
 			"password": e.target[1].value
+		})
+
+		const headers = {
+			'Content-Type': 'application/json',
 		}
 
 		console.log('Submit')
 		console.log(e.target[0].value)
 		console.log(e.target[1].value)
 
-		const test = await request("POST", "http://localhost:3001/api/v1/user/login", body)
+		const test = await request("POST", "http://localhost:3001/api/v1/user/login", body, headers)
 		// console.log(test.body.token)
 		if (test.status === 400) {
 			getError(test.message)
@@ -50,7 +56,6 @@ function Sign() {
 	// 		)
 	// 	}
 	// }
-
 
 	return (
 		<main className="main bg-dark">

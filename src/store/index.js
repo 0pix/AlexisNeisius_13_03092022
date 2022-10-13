@@ -3,20 +3,16 @@ import {createStore} from 'redux'
 const initialState = {
 	error: "",
 	token: "",
-	user: {
-		email: "null",
-		password: "null"
-	},
+	data: ""
 }
 
 const counterReducer = (state = initialState, action) => {
 
 	if (action.type === 'submit') {
 		return {
-			account: state.account,
 			error: state.error,
-			user: action.user,
-			token: state.token
+			token: state.token,
+			data: state.data
 		}
 	}
 	// if (action.type === 'haveAccount') {
@@ -27,28 +23,25 @@ const counterReducer = (state = initialState, action) => {
 	// 		token: state.token
 	// 	}
 	// }
-	if (action.type === 'dontHaveAccount') {
+	if (action.type === 'getUserData') {
 		return {
-			account: state.account,
 			error: state.error,
-			user: state.user,
-			token: state.token
+			token: state.token,
+			data: action.data
 		}
 	}
 	if (action.type === 'getError') {
 		return {
-			account: false,
 			error: action.error,
-			user: state.user,
-			token: state.token
+			token: state.token,
+			data: state.data
 		}
 	}
 	if (action.type === 'getToken') {
 		return {
-			account: false,
 			error: action.error,
-			user: state.user,
-			token: action.token
+			token: action.token,
+			data: state.data
 		}
 	}
 	return state
