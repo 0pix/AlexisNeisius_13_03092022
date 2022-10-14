@@ -3,7 +3,8 @@ import {createStore} from 'redux'
 const initialState = {
 	error: "",
 	token: "",
-	data: ""
+	data: "",
+	buttonEdit: false
 }
 
 const counterReducer = (state = initialState, action) => {
@@ -12,38 +13,45 @@ const counterReducer = (state = initialState, action) => {
 		return {
 			error: state.error,
 			token: state.token,
-			data: state.data
+			data: state.data,
+			buttonEdit: state.buttonEdit
 		}
 	}
-	// if (action.type === 'haveAccount') {
-	// 	return {
-	// 		account: true,
-	// 		error: state.error,
-	// 		user: state.user,
-	// 		token: state.token
-	// 	}
-	// }
+
 	if (action.type === 'getUserData') {
 		return {
 			error: state.error,
 			token: state.token,
-			data: action.data
+			data: action.data,
+			buttonEdit: state.buttonEdit
 		}
 	}
 	if (action.type === 'getError') {
 		return {
 			error: action.error,
 			token: state.token,
-			data: state.data
+			data: state.data,
+			buttonEdit: state.buttonEdit
 		}
 	}
 	if (action.type === 'getToken') {
 		return {
 			error: action.error,
 			token: action.token,
-			data: state.data
+			data: state.data,
+			buttonEdit: state.buttonEdit
 		}
 	}
+	if (action.type === 'editName') {
+		return {
+			error: state.error,
+			token: state.token,
+			data: state.data,
+			buttonEdit: !state.buttonEdit
+		}
+	}
+
+
 	return state
 }
 

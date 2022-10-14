@@ -1,11 +1,52 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {request} from "../../helper/fetch";
+import EditName from "../../components/EditName/EditName";
 
 const Transaction = () => {
+	const token = useSelector(state => state.token)
+	const data = useSelector(state => state.data)
+	const dispatch = useDispatch()
+
+	const getError = (error) => {
+		dispatch({type: 'getError', error: error})
+	}
+
+	const getUserData = (data) => {
+		dispatch({type: 'getUserData', data: data})
+	}
+
+	const getData = async (e) => {
+		const body = ""
+		const headers = {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		}
+
+		const test = await request("POST", "http://localhost:3001/api/v1/user/profile", body, headers)
+
+		if (test.status === 400) {
+			// console.log(400, test)
+		}
+		if (test.status === 200) {
+			// console.log(200, test.body)
+			getUserData(test.body)
+			// navigate('/transaction')
+		}
+	}
+
+	useEffect(() => {
+		getData()
+	}, [token])
+
+	console.log(data)
+
 	return (
 		<main className="main bg-dark">
 			<div className="header">
-				<h1>Welcome back<br/>Tony Jarvis!</h1>
-				<button className="edit-button">Edit Name</button>
+				<h1>Welcome back<br/>{data.firstName} {data.lastName}</h1>
+				{/*<button className="edit-button">Edit Name</button>*/}
+				<EditName/>
 			</div>
 			<h2 className="sr-only">Accounts</h2>
 			<section className="account">

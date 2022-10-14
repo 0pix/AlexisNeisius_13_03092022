@@ -1,0 +1,29 @@
+.editName {
+  margin: 0 auto;
+}
+
+.editName button {
+  margin: 0 7px;
+  width: 100px;
+}
+
+
+.editNameInput input::placeholder {
+  color: rgba(0, 0, 0, 0.27);
+}
+
+.editNameInput input {
+  outline: none;
+  margin: 14px 7px;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 3px;
+}
+
+.buttonSave {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
