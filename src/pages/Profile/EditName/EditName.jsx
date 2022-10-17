@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './EditName.css'
 import {useDispatch, useSelector} from "react-redux";
-import {request} from "../../helper/fetch";
+import {request} from "../../../helper/fetch";
 
 
 const EditName = () => {
@@ -24,19 +24,22 @@ const EditName = () => {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		}
+		const getUserData = (data) => {
+			dispatch({type: 'getUserData', data: data})
+		}
 
 		const test = await request("PUT", "http://localhost:3001/api/v1/user/profile", body, headers)
 
 		if (test.status === 400) {
-			console.log(400, test)
+			// console.log(400, test)
 		}
 		if (test.status === 200) {
-			console.log(200, test)
-			// getUserData(test.body)
+			// console.log(200, test)
+			getUserData(test.body)
 			// navigate('/transaction')
 		}
 		// console.log(firstName, lastName)
-		console.log(body)
+		console.log('editname')
 
 	}
 	return (

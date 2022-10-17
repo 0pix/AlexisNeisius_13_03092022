@@ -13,6 +13,10 @@ body {
   min-height: 100vh;
 }
 
+button {
+  cursor: pointer;
+}
+
 .main {
   flex: 1;
 }

@@ -43,7 +43,7 @@ function Sign() {
 		}
 		if (test.status === 200) {
 			getToken(test.body.token)
-			navigate('/transaction')
+			navigate('/profile')
 		}
 	}
 	// exécuter le call du fetch ici, puis le dispatch vers le store du token

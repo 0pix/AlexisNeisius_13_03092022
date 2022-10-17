@@ -55,7 +55,7 @@ export const useFetch = (method, url) => {
 						console.log(data)
 						haveAccount()
 						getToken(data.body.token)
-						navigate('/transaction')
+						navigate('/profile')
 					}
 				})
 				.catch(function (err) {

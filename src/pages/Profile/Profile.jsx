@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {request} from "../../helper/fetch";
-import EditName from "../../components/EditName/EditName";
+import EditName from "./EditName/EditName";
 
-const Transaction = () => {
+const Profile = () => {
 	const token = useSelector(state => state.token)
 	const data = useSelector(state => state.data)
 	const dispatch = useDispatch()
+	// const firstName = useSelector(state => state.data.firstName)
 
 	const getError = (error) => {
 		dispatch({type: 'getError', error: error})
@@ -31,15 +32,15 @@ const Transaction = () => {
 		if (test.status === 200) {
 			// console.log(200, test.body)
 			getUserData(test.body)
-			// navigate('/transaction')
 		}
 	}
 
 	useEffect(() => {
 		getData()
-	}, [token])
+	}, [])
 
-	console.log(data)
+	console.log('transaction')
+	// console.log(firstName)
 
 	return (
 		<main className="main bg-dark">
@@ -83,4 +84,4 @@ const Transaction = () => {
 	);
 };
 
-export default Transaction;
+export default Profile;

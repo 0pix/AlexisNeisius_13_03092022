@@ -1,0 +1,29 @@
+.nameSign {
+  display: flex;
+  align-items: center;
+}
+
+.userButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  font-weight: 600;
+}
+
+.userButton img {
+  width: 15px;
+  fill: red;
+}
+
+
+.userIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  background-color: #c2c2c2;
+  border-radius: 100%;
+  margin-right: 10px;
+}
