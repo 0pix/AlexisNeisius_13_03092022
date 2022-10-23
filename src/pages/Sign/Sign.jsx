@@ -19,7 +19,6 @@ function Sign() {
 		dispatch({type: 'getToken', token: token})
 	}
 
-
 	const handlerSubmit = async (e) => {
 		e.preventDefault();
 
@@ -47,7 +46,7 @@ function Sign() {
 		}
 	}
 	// exécuter le call du fetch ici, puis le dispatch vers le store du token
-
+	//
 	// const errorMessage = () => {
 	// 	if (token === "" && error !== "") {
 	// 		return (<p style={{color: "red"}}>

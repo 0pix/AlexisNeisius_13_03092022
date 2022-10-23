@@ -28,10 +28,10 @@ const Header = () => {
 				<h1 className="sr-only">Argent Bank</h1>
 			</Link>
 			<div className={'nameSign'}>
-				{token && <div onClick={() => navigate('/profile')} className={'userButton'}>
+				{token && <Link to={'/profile'} className={'userButton'}>
 					<div className={'userIcon'}><img src={userIcon} alt="Logo"/></div>
 					{data.firstName}
-				</div>}
+				</Link>}
 				{token && <Link onClick={() => {
 					signOut()
 				}} className="main-nav-item" to="/">Sign out</Link>}
