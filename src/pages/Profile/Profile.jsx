@@ -27,10 +27,8 @@ const Profile = () => {
 		const test = await request("POST", "http://localhost:3001/api/v1/user/profile", body, headers)
 
 		if (test.status === 400) {
-			// console.log(400, test)
 		}
 		if (test.status === 200) {
-			// console.log(200, test.body)
 			getUserData(test.body)
 		}
 	}
@@ -42,11 +40,14 @@ const Profile = () => {
 	console.log('transaction')
 	// console.log(firstName)
 
+	if (!token) {
+		return <main className={'noToken'}>Veuillez vous connecter.</main>
+	}
+
 	return (
 		<main className="main bg-dark">
 			<div className="header">
 				<h1>Welcome back<br/>{data.firstName} {data.lastName}</h1>
-				{/*<button className="edit-button">Edit Name</button>*/}
 				<EditName/>
 			</div>
 			<h2 className="sr-only">Accounts</h2>

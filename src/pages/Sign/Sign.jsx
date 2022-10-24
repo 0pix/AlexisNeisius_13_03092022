@@ -7,9 +7,6 @@ import {request} from "../../helper/fetch";
 function Sign() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate();
-	const error = useSelector(state => state.error)
-	const token = useSelector(state => state.token)
-
 
 	const getError = (error) => {
 		dispatch({type: 'getError', error: error})
@@ -31,12 +28,8 @@ function Sign() {
 			'Content-Type': 'application/json',
 		}
 
-		console.log('Submit')
-		console.log(e.target[0].value)
-		console.log(e.target[1].value)
-
 		const test = await request("POST", "http://localhost:3001/api/v1/user/login", body, headers)
-		// console.log(test.body.token)
+
 		if (test.status === 400) {
 			getError(test.message)
 		}

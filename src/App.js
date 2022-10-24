@@ -5,9 +5,11 @@ import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
 import Home from "./pages/Home/Home";
 import Sign from "./pages/Sign/Sign";
+import {useSelector} from "react-redux";
 
 
 function App() {
+	const token = useSelector(state => state.token)
 	return (
 		<Router>
 			<div className="app">

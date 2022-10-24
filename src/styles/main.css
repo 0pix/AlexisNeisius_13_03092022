@@ -21,6 +21,21 @@ a {
   text-decoration: none;
 }
 
+@media (min-width: 920px) {
+  main {
+    height: 100%;
+  }
+}
+
+.noToken {
+  background-color: #24C387;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .main {
   flex: 1;
 }
