@@ -129,7 +129,7 @@ paths:
         '200':
           description: User transactions of the month retrieved successully
           schema:
-            $ref: '#/definitions/TransactionsResponse'
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -275,19 +275,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Transaction'
-  TransactionsResponse:
-    type: object
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: array
-        items:
-          oneOf:
-            - $ref: '#/definitions/Transaction'
-            - $ref: '#/definitions/Transaction'
   TransactionUpdate:
     type: object
     properties:
